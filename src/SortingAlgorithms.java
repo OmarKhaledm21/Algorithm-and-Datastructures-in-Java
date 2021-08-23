@@ -1,5 +1,5 @@
 
-public class SortAlgo {
+public class SortingAlgorithms {
 
     public static void bubbleSort(int[] arr,int size){
         printArray(arr,size);
