@@ -45,6 +45,21 @@ public class SortingAlgorithms {
         }
     }
 
+    static void shellSort(int arr[],int len) {
+        for (int interval = len / 2; interval > 0; interval /= 2) {
+            for (int i = interval; i < len; i++) {
+                int key = arr[i];
+                int j = i;
+
+                while (j >= interval && arr[j - interval] > key) {
+                    arr[j] = arr[j - interval];
+                    j -= interval;
+                }
+                arr[j] = key;
+            }
+        }
+    }
+
     public static void merge(int[] arr,int start,int mid, int end){
         int leftLength = mid - start +1;
         int rightLength = end - mid;
@@ -139,6 +154,42 @@ public class SortingAlgorithms {
     static void quickSort(int arr[],int len) {
         quickSortMiddlePivot(arr, 0, len - 1);
         printArray(arr, len);
+    }
+
+    static void heapify(int arr[], int n, int i)
+    {
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        int max = i;
+        if (l < n && arr[l] > arr[max])
+            max = l;
+        if (r < n && arr[r] > arr[max])
+            max = r;
+
+        if (max != i) {
+            int temp = arr[i];
+            arr[i]= arr[max];
+            arr[max]= temp;
+            heapify(arr, n, max);
+        }
+    }
+
+    static void buildHeap(int arr[], int n)
+    {
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(arr, n, i);
+    }
+
+    static void heapSort(int arr[], int n)
+    {
+        buildHeap(arr, n);
+        for (int i = n - 1; i >= 0; i--)
+        {
+            int temp = arr[0];
+            arr[0]=arr[i];
+            arr[i]=temp;
+            heapify(arr, i, 0);
+        }
     }
 
     public static void main(String[] args) {
