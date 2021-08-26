@@ -200,126 +200,89 @@ public class BST {
     public boolean remove(int key) {
 
         // Start at the top of the tree
-        treeNode focusNode = root;
+        treeNode current = root;
         treeNode parent = root;
 
         // When searching for a Node this will
         // tell us whether to search to the
         // right or left
-
         boolean isItALeftChild = true;
 
         // While we haven't found the Node
         // keep looking
-
-        while (focusNode.key != key) {
-
-            parent = focusNode;
-
+        while (current.key != key) {
+            parent = current;
             // If we should search to the left
-
-            if (key < focusNode.key) {
-
+            if (key < current.key) {
                 isItALeftChild = true;
-
                 // Shift the focus Node to the left child
-
-                focusNode = focusNode.left;
-
+                current = current.left;
             } else {
-
                 // Greater than focus node so go to the right
-
                 isItALeftChild = false;
-
                 // Shift the focus Node to the right child
-
-                focusNode = focusNode.right;
-
+                current = current.right;
             }
 
             // The node wasn't found
-
-            if (focusNode == null)
+            if (current == null)
                 return false;
 
         }
 
         // If Node doesn't have children delete it
-
-        if (focusNode.left == null && focusNode.right == null) {
-
+        if (current.left == null && current.right == null) {
             // If root delete it
-
-            if (focusNode == root)
+            if (current == root){
                 root = null;
-
-                // If it was marked as a left child
-                // of the parent delete it in its parent
-
-            else if (isItALeftChild)
+            }else if (isItALeftChild) {
                 parent.left = null;
-
                 // Vice versa for the right child
-
-            else
+            } else {
                 parent.right = null;
-
-        }
-
-        // If no right child
-
-        else if (focusNode.right == null) {
-
-            if (focusNode == root)
-                root = focusNode.left;
+            }
+        } else if (current.right == null) {
+            if (current == root)
+                root = current.left;
 
                 // If focus Node was on the left of parent
                 // move the focus Nodes left child up to the
                 // parent node
 
             else if (isItALeftChild)
-                parent.left = focusNode.left;
+                parent.left = current.left;
 
                 // Vice versa for the right child
-
             else
-                parent.right = focusNode.left;
+                parent.right = current.left;
+        } else if (current.left == null) {
 
-        }
-
-        // If no left child
-
-        else if (focusNode.left == null) {
-
-            if (focusNode == root)
-                root = focusNode.right;
+            if (current == root)
+                root = current.right;
 
                 // If focus Node was on the left of parent
                 // move the focus Nodes right child up to the
                 // parent node
 
             else if (isItALeftChild)
-                parent.left = focusNode.right;
+                parent.left = current.right;
 
                 // Vice versa for the left child
 
             else
-                parent.right = focusNode.right;
+                parent.right = current.right;
 
         }
-
         // Two children so I need to find the deleted nodes
         // replacement
-
         else {
 
-            treeNode replacement = getReplacementNode(focusNode);
+            treeNode replacement = getReplacementNode(current);
 
-            // If the focusNode is root replace root
+            // If the current is root replace root
             // with the replacement
 
-            if (focusNode == root)
+            if (current == root)
                 root = replacement;
 
                 // If the deleted node was a left child
@@ -333,7 +296,7 @@ public class BST {
             else
                 parent.right = replacement;
 
-            replacement.left = focusNode.left;
+            replacement.left = current.left;
 
         }
 
@@ -341,22 +304,22 @@ public class BST {
 
     }
 
-    public treeNode getReplacementNode(treeNode replacedNode) {
+    public treeNode getReplacementNode(treeNode node) {
 
-        treeNode replacementParent = replacedNode;
-        treeNode replacement = replacedNode;
+        treeNode Parent = node;
+        treeNode replacement = node;
 
-        treeNode focusNode = replacedNode.right;
+        treeNode traverserNode = node.right;
 
         // While there are no more left children
 
-        while (focusNode != null) {
+        while (traverserNode != null) {
 
-            replacementParent = replacement;
+            Parent = replacement;
 
-            replacement = focusNode;
+            replacement = traverserNode;
 
-            focusNode = focusNode.left;
+            traverserNode = traverserNode.left;
 
         }
 
@@ -365,10 +328,10 @@ public class BST {
         // leftChild slot and move the replaced nodes
         // right child into the replacements rightChild
 
-        if (replacement != replacedNode.right) {
+        if (replacement != node.right) {
 
-            replacementParent.left = replacement.right;
-            replacement.right = replacedNode.right;
+            Parent.left = replacement.right;
+            replacement.right = node.right;
 
         }
 
