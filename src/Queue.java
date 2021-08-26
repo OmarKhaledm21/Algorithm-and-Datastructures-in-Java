@@ -55,8 +55,8 @@ public class Queue<T>{
         length--;
     }
 
-    public queueNode<T> front(){
-        return frontPtr;
+    public T front(){
+        return frontPtr.data;
     }
 
     public queueNode<T> rear(){
