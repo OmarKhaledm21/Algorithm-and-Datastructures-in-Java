@@ -184,17 +184,13 @@ public class BST {
     }
 
     public void clearTree(){
-        clearTree(root);
-        root=null;
-    }
-
-    public void clearTree(treeNode node){
-        if(node != null){
-            clearTree(node.left);
-            clearTree(node.right);
-            node.clear();
+        if(root==null){
+            System.out.println("Tree is empty!");
+        }else {
+            root = null;
         }
     }
+
 
 
     public boolean remove(int key) {
