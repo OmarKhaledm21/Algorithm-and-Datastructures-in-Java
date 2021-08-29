@@ -118,7 +118,7 @@ public class SortingAlgorithms {
     }
 
 
-    static int partitionMiddle(int arr[],int l,int r,int pivot) {
+    static int partitionMiddle(int[] arr,int l,int r,int pivot) {
         while (l <= r) {
             while (arr[l] < pivot) {
                 l++;
@@ -140,7 +140,7 @@ public class SortingAlgorithms {
         return l;
     }
 
-    static void quickSortMiddlePivot(int arr[],int l,int r) {
+    static void quickSortMiddlePivot(int[] arr,int l,int r) {
         if (l < r) {
             int pivot = arr[ (l+r) / 2 ];
 
@@ -151,12 +151,12 @@ public class SortingAlgorithms {
         }
     }
 
-    static void quickSort(int arr[],int len) {
-        quickSortMiddlePivot(arr, 0, len - 1);
-        printArray(arr, len);
+    static void quickSort(int[] arr,int size) {
+        quickSortMiddlePivot(arr, 0, size - 1);
+        printArray(arr, size);
     }
 
-    static void heapify(int arr[], int n, int i)
+    static void heapify(int[] arr, int n, int i)
     {
         int l = 2 * i + 1;
         int r = 2 * i + 2;
@@ -174,13 +174,13 @@ public class SortingAlgorithms {
         }
     }
 
-    static void buildHeap(int arr[], int n)
+    static void buildHeap(int[] arr, int n)
     {
         for (int i = n / 2 - 1; i >= 0; i--)
             heapify(arr, n, i);
     }
 
-    static void heapSort(int arr[], int n)
+    static void heapSort(int[] arr, int n)
     {
         buildHeap(arr, n);
         for (int i = n - 1; i >= 0; i--)
@@ -193,7 +193,7 @@ public class SortingAlgorithms {
     }
 
     public static void main(String[] args) {
-        int array[] = { 10, 8, 4, 80, 13, 1, 3, 11 };
+        int[] array = { 10, 8, 4, 80, 13, 1, 3, 11 };
         quickSort(array,8);
         System.out.println(Arrays.toString(array));
 
