@@ -7,7 +7,7 @@ import java.util.*;
 
 class Graph<T> {
     // We use Hashmap to store the edges in the graph
-    private Map<T, List<T> > map = new HashMap<>();
+    private Map<T, LinkedList<T> > map = new HashMap<>();
 
     // This function adds a new vertex to the graph
     public void addVertex(T s) {
@@ -70,6 +70,8 @@ class Graph<T> {
             System.out.println("The graph has no edge between " + s + " and " + d + ".");
         }
     }
+
+
 
     // Prints the adjancency list of each vertex.
     @Override
