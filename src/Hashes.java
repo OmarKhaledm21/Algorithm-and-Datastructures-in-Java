@@ -13,8 +13,8 @@ public class Hashes {
 
     public String findKey(String key){
         int index = Integer.parseInt(key)%29;
-        while (theArray[index] != "-1"){
-           if (theArray[index]==key) {
+        while (!theArray[index].equals("-1")){
+           if (theArray[index].equals(key)) {
                System.out.println(key + " was found in " + index);
                 return theArray[index];
            }
@@ -22,7 +22,7 @@ public class Hashes {
            index %= arraySize;
         }
         System.out.println("Key was not found!");
-        return "";
+        return "-1";
     }
 
     public void HashFunction1(String[] strings, String[] theArray){
@@ -33,17 +33,15 @@ public class Hashes {
     }
 
     public void HashFunction2(String[] strings, String[] theArray){
-        for(int i=0; i<strings.length; i++){
-            String newVal = strings[i];
-
-            int index = Integer.parseInt(newVal)%29;
-            System.out.println("Mod Index= "+index+" for value "+ newVal);
-            while (theArray[index] != "-1"){
-                System.out.println("Collision "+index+ " try "+(index+1));
+        for (String newVal : strings) {
+            int index = Integer.parseInt(newVal) % 29;
+            System.out.println("Mod Index= " + index + " for value " + newVal);
+            while (theArray[index] != "-1") {
+                System.out.println("Collision " + index + " try " + (index + 1));
                 ++index;
                 index %= arraySize;
             }
-            System.out.println("Now in "+index);
+            System.out.println("Now in " + index);
             theArray[index] = newVal;
         }
     }

@@ -86,7 +86,6 @@ public class SortingAlgorithms {
                 arr[k] = rightArray[j];
                 j++;
             }
-
             k++;
         }
 
