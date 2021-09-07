@@ -103,6 +103,7 @@ public class Graph {
             if (currentFirst.isVisited())
                 continue;
 
+
             // Mark the node as visited
             currentFirst.visit();
             System.out.print(currentFirst.n + " ");
