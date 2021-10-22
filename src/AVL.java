@@ -78,22 +78,27 @@ class ConstructAVLTree
         {
             parentNode.leftChild = insertElement( element, parentNode.leftChild );
             if( getHeight( parentNode.leftChild ) - getHeight( parentNode.rightChild ) == 2 )
-                if( element < parentNode.leftChild.element )
-                    parentNode = rotateWithLeftChild(parentNode);
-                else
-                    parentNode = doubleWithLeftChild(parentNode);
+                if( element < parentNode.leftChild.element ) {
+                    parentNode = RightRotation(parentNode);
+                    System.out.println("RIGHT ROTATION");
+                }
+                else {
+                    parentNode = LeftRightRotation(parentNode);
+                    System.out.println("LEFT RIGHT ROTATION");
+                }
         }
         else if( element > parentNode.element )
         {
             parentNode.rightChild = insertElement( element, parentNode.rightChild );
             if( getHeight( parentNode.rightChild ) - getHeight( parentNode.leftChild ) == 2 )
                 if( element > parentNode.rightChild.element)
-                    parentNode = rotateWithRightChild(parentNode);
+                    parentNode = LeftRotation(parentNode);
                 else
-                    parentNode = doubleWithRightChild(parentNode);
+                    parentNode = RightLeftRotation(parentNode);
         }
-        else
-            ;  // if the element is already present in the tree, we will do nothing   
+        // if the element is already present in the tree, we will do nothing
+        else System.out.println("Cannot insert duplicate elements!");
+
         parentNode.h = getMaxHeight( getHeight( parentNode.leftChild ), getHeight( parentNode.rightChild ) ) + 1;
 
         return parentNode;
@@ -101,18 +106,19 @@ class ConstructAVLTree
     }
 
     // creating rotateWithLeftChild() method to perform rotation of binary tree node with left child        
-    private avlNode rotateWithLeftChild(avlNode avlNode2)
+    private avlNode RightRotation(avlNode avlNode2)
     {
         avlNode avlNode1 = avlNode2.leftChild;
         avlNode2.leftChild = avlNode1.rightChild;
         avlNode1.rightChild = avlNode2;
         avlNode2.h = getMaxHeight( getHeight( avlNode2.leftChild ), getHeight( avlNode2.rightChild ) ) + 1;
         avlNode1.h = getMaxHeight( getHeight( avlNode1.leftChild ), avlNode2.h ) + 1;
+
         return avlNode1;
     }
 
     // creating rotateWithRightChild() method to perform rotation of binary tree node with right child        
-    private avlNode rotateWithRightChild(avlNode avlNode1)
+    private avlNode LeftRotation(avlNode avlNode1)
     {
         avlNode avlNode2 = avlNode1.rightChild;
         avlNode1.rightChild = avlNode2.leftChild;
@@ -123,17 +129,17 @@ class ConstructAVLTree
     }
 
     //create doubleWithLeftChild() method to perform double rotation of binary tree node. This method first rotate the left child with its right child, and after that, node3 with the new left child  
-    private avlNode doubleWithLeftChild(avlNode avlNode3)
+    private avlNode LeftRightRotation(avlNode avlNode3)
     {
-        avlNode3.leftChild = rotateWithRightChild( avlNode3.leftChild );
-        return rotateWithLeftChild(avlNode3);
+        avlNode3.leftChild = LeftRotation( avlNode3.leftChild );
+        return RightRotation(avlNode3);
     }
 
     //create doubleWithRightChild() method to perform double rotation of binary tree node. This method first rotate the right child with its left child and after that node1 with the new right child  
-    private avlNode doubleWithRightChild(avlNode avlNode1)
+    private avlNode RightLeftRotation(avlNode avlNode1)
     {
-        avlNode1.rightChild = rotateWithLeftChild( avlNode1.rightChild );
-        return rotateWithRightChild(avlNode1);
+        avlNode1.rightChild = RightRotation( avlNode1.rightChild );
+        return LeftRotation(avlNode1);
     }
 
     //create getTotalNumberOfNodes() method to get total number of nodes in the AVL Tree  
