@@ -3,7 +3,7 @@ import java.util.*;
 
 class Graph {
     private int Vertices;
-    private LinkedList[] adj;
+    private LinkedList<Integer>[] adj;
 
     Graph(int vertices) {
         Vertices = vertices;
@@ -43,9 +43,11 @@ class Graph {
         visited[v] = true;
         System.out.print(v + " ");
 
-        Iterator<Integer> i = adj[v].listIterator();
-        while (i.hasNext()) {
-            int n = i.next();
+        LinkedList<Integer> adjVertices = adj[v];
+        int i=0;
+        while (i<adjVertices.size()) {
+            int n = adjVertices.get(i);
+            i++;
             if (!visited[n])
                 DFSUtil(n, visited);
         }
@@ -66,12 +68,11 @@ class Graph {
         g.addEdge(2, 3);
         g.addEdge(3, 3);
 
-        System.out.println("Following is Breadth First Traversal (starting from vertex 2)");
+        System.out.println("Following is Breadth First Traversal ");
+        g.BFS(2);
 
-        g.BFS(0);
-
-        System.out.println("\nFollowing is Depth First Traversal " + "(starting from vertex 2)");
-        g.DFS(1);
+        System.out.println("\nFollowing is Depth First Traversal ");
+        g.DFS(2);
 
 
     }
