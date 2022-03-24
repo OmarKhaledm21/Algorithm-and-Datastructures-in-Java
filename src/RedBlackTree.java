@@ -1,43 +1,36 @@
-/*package whatever //do not write package name here */
-
-import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 // considering that you know what are red-black trees here is the implementation in java for insertion and traversal.
 // RedBlackTree class. This class contains subclass for node
 // as well as all the functionalities of RedBlackTree such as - rotations, insertion and
 // inoredr traversal
-public class RedBlackTree
-{
-    public Node root;//root node
-    public RedBlackTree()
-    {
-        super();
+class redBlackNode {
+    int data;
+    redBlackNode left;
+    redBlackNode right;
+    char colour;
+    redBlackNode parent;
+
+    redBlackNode(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+        this.colour = 'R';
+        this.parent = null;
+    }
+}
+
+public class RedBlackTree {
+    public redBlackNode root;
+
+    public RedBlackTree() {
         root = null;
     }
-    // node creating sub-class
-    static class Node
-    {
-        int data;
-        Node left;
-        Node right;
-        char colour;
-        Node parent;
 
-        Node(int data)
-        {
-            super();
-            this.data = data; // only including data. not key
-            this.left = null; // left subtree
-            this.right = null; // right subtree
-            this.colour = 'R'; // colour . either 'R' or 'B'
-            this.parent = null; // required at time of rechecking.
-        }
-    }
-    // this function performs left rotation
-    Node rotateLeft(Node node)
-    {
-        Node x = node.right;
-        Node y = x.left;
+    redBlackNode rotateLeft(redBlackNode node) {
+        redBlackNode x = node.right;
+        redBlackNode y = x.left;
         x.left = node;
         node.right = y;
         node.parent = x; // parent resetting is also important.
@@ -45,11 +38,10 @@ public class RedBlackTree
             y.parent = node;
         return(x);
     }
-    //this function performs right rotation
-    Node rotateRight(Node node)
-    {
-        Node x = node.left;
-        Node y = x.right;
+
+    redBlackNode rotateRight(redBlackNode node) {
+        redBlackNode x = node.left;
+        redBlackNode y = x.right;
         x.right = node;
         node.left = y;
         node.parent = x;
@@ -57,8 +49,6 @@ public class RedBlackTree
             y.parent = node;
         return(x);
     }
-
-
     // these are some flags.
     // Respective rotations are performed during traceback.
     // rotations are done if flags are true.
@@ -67,26 +57,22 @@ public class RedBlackTree
     boolean lr = false;
     boolean rl = false;
     // helper function for insertion. Actually this function performs all tasks in single pass only.
-    Node insertHelp(Node root, int data)
-    {
+    redBlackNode insertHelp(redBlackNode root, int data) {
         // f is true when RED RED conflict is there.
         boolean DoubleRedFlag=false;
 
         //recursive calls to insert at proper position according to BST properties.
         if(root==null)
-            return(new Node(data));
-        else if(data<root.data)
-        {
+            return(new redBlackNode(data));
+        else if(data<root.data) {
             root.left = insertHelp(root.left, data);
             root.left.parent = root;
-            if(root!=this.root)
-            {
+            if(root!=this.root) {
                 if(root.colour=='R' && root.left.colour=='R')
                     DoubleRedFlag = true;
             }
         }
-        else
-        {
+        else {
             root.right = insertHelp(root.right,data);
             root.right.parent = root;
             if(root!=this.root)
@@ -134,8 +120,7 @@ public class RedBlackTree
         }
         // when rotation and recolouring is done flags are reset.
         // Now lets take care of RED RED conflict
-        if(DoubleRedFlag)
-        {
+        if(DoubleRedFlag) {
             if(root.parent.right == root) // to check which child is the current node of its parent
             {
                 if(root.parent.left==null || root.parent.left.colour=='B') // case when parent's sibling is black
@@ -153,17 +138,14 @@ public class RedBlackTree
                         root.parent.colour = 'R';
                 }
             }
-            else
-            {
-                if(root.parent.right==null || root.parent.right.colour=='B')
-                {
+            else {
+                if(root.parent.right==null || root.parent.right.colour=='B') {
                     if(root.left!=null && root.left.colour=='R')
                         this.rr = true;
                     else if(root.right!=null && root.right.colour=='R')
                         this.lr = true;
                 }
-                else
-                {
+                else {
                     root.parent.right.colour = 'B';
                     root.colour = 'B';
                     if(root.parent!=this.root)
@@ -175,67 +157,36 @@ public class RedBlackTree
         return(root);
     }
 
-    // function to insert data into tree.
-    public void insert(int data)
-    {
-        if(this.root==null)
-        {
-            this.root = new Node(data);
+    public void insert(int data) {
+        if(this.root==null) {
+            this.root = new redBlackNode(data);
             this.root.colour = 'B';
         }
-        else
-            this.root = insertHelp(this.root,data);
+        else {
+            this.root = insertHelp(this.root, data);
+        }
     }
-    // helper function to print inorder traversal
-    void inorderTraversalHelper(Node node)
-    {
-        if(node!=null)
-        {
+
+    void inorderTraversalHelper(redBlackNode node) {
+        if(node!=null) {
             inorderTraversalHelper(node.left);
-            System.out.printf("%d ", node.data);
+            System.out.print( node.data+" ");
             inorderTraversalHelper(node.right);
         }
     }
-    //function to print inorder traversal
-    public void inorderTraversal()
-    {
+
+    public void inorderTraversal() {
         inorderTraversalHelper(this.root);
     }
-    // helper function to print the tree.
-    void printTreeHelper(Node root, int space)
-    {
-        int i;
-        if(root != null)
-        {
-            space = space + 10;
-            printTreeHelper(root.right, space);
-            System.out.printf("\n");
-            for ( i = 10; i < space; i++)
-            {
-                System.out.printf(" ");
-            }
-            System.out.printf("%d", root.data);
-            System.out.printf("\n");
-            printTreeHelper(root.left, space);
-        }
-    }
-    // function to print the tree.
-    public void printTree()
-    {
-        printTreeHelper(this.root, 0);
-    }
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         // let us try to insert some data into tree and try to visualize the tree as well as traverse.
         RedBlackTree t = new RedBlackTree();
-        int[] arr = {10,7,42,31,64,29,50,83,5,23,89};
-        for(int i=0;i<arr.length;i++)
-        {
-            t.insert(arr[i]);
-            System.out.println();
-            t.inorderTraversal();
+        Scanner scanner = new Scanner(System.in);
+        int[] sample = {77,5,23,47,21 ,23 ,99,120,29};
+        for(int i=0; i<sample.length; i++){
+            t.insert(sample[i]);
         }
-        // you can check colour of any node by with its attribute node.colour
-        t.printTree();
+        t.inorderTraversal();
     }
 }
