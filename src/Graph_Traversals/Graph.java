@@ -19,7 +19,7 @@ class Graph {
 
     void BFS(int s) {
         boolean[] visited = new boolean[Vertices];
-        LinkedList<Integer> queue = new LinkedList<>();
+        Queue<Integer> queue = new LinkedList<>();
 
         visited[s]=true;
         queue.add(s);
