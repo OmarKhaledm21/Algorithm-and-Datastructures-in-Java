@@ -1,23 +1,21 @@
 import java.util.Scanner;
 
-class avlNode
-{
+class AVLTreeNode {
     int element;
     int h;  //for height  
-    avlNode leftChild;
-    avlNode rightChild;
+    AVLTreeNode leftChild;
+    AVLTreeNode rightChild;
 
     //default constructor to create null node  
-    public avlNode()
-    {
+    public AVLTreeNode() {
         leftChild = null;
         rightChild = null;
         element = 0;
         h = 0;
     }
-    // parameterized constructor  
-    public avlNode(int element)
-    {
+
+    // parameterized constructor
+    public AVLTreeNode(int element) {
         leftChild = null;
         rightChild = null;
         this.element = element;
@@ -26,218 +24,204 @@ class avlNode
 }
 
 // create class ConstructAVLTree for constructing AVL Tree  
-class ConstructAVLTree
-{
-    private avlNode root;
+class ConstructAVLTree {
+    private AVLTreeNode root;
 
     //Constructor to set null value to the rootNode  
-    public ConstructAVLTree()
-    {
+    public ConstructAVLTree() {
         root = null;
     }
 
     //create removeAll() method to make AVL Tree empty  
-    public void removeAll()
-    {
+    public void removeAll() {
         root = null;
     }
 
     // create checkEmpty() method to check whether the AVL Tree is empty or not  
-    public boolean checkEmpty()
-    {
-        return (root==null);
+    public boolean checkEmpty() {
+        return (root == null);
     }
 
-    // create insertElement() to insert element to to the AVL Tree  
-    public void insertElement(int element)
-    {
-        root = insertElement(element, root);
+    //create getHeight() method to get the height of the AVL Tree
+    private int getHeight(AVLTreeNode AVLTreeNode) {
+        return AVLTreeNode == null ? -1 : AVLTreeNode.h;
     }
 
-    //create getHeight() method to get the height of the AVL Tree  
-    private int getHeight(avlNode avlNode)
-    {
-        return avlNode == null ? -1 : avlNode.h;
-    }
-
-    //create maxNode() method to get the maximum height from left and right node  
-    private int getMaxHeight(int leftNodeHeight, int rightNodeHeight)
-    {
+    //create getMaxNode() method to get the maximum height from left and right node
+    private int getMaxNode(int leftNodeHeight, int rightNodeHeight) {
         return Math.max(leftNodeHeight, rightNodeHeight);
     }
 
+    // create insertElement() to insert element to to the AVL Tree
+    public void insertElement(int element) {
+        root = insertElement(element, root);
+    }
 
     //create insertElement() method to insert data in the AVL Tree recursively   
-    private avlNode insertElement(int element, avlNode parentNode)
-    {
-        //check whether the node is null or not  
-        if (parentNode == null)
-            parentNode = new avlNode(element);
-            //insert a node in case when the given element is lesser than the element of the root node
-        else if (element < parentNode.element)
-        {
-            parentNode.leftChild = insertElement( element, parentNode.leftChild );
-            if( getHeight( parentNode.leftChild ) - getHeight( parentNode.rightChild ) == 2 )
-                if( element < parentNode.leftChild.element ) {
+    private AVLTreeNode insertElement(int element, AVLTreeNode parentNode) {
+         if (parentNode == null) {
+            parentNode = new AVLTreeNode(element);
+        } else if (element < parentNode.element) {
+            parentNode.leftChild = insertElement(element, parentNode.leftChild);
+            if (getHeight(parentNode.leftChild) - getHeight(parentNode.rightChild) > 1)
+                if (element < parentNode.leftChild.element) {
                     parentNode = RightRotation(parentNode);
                     System.out.println("RIGHT ROTATION");
-                }
-                else {
+                } else {
                     parentNode = LeftRightRotation(parentNode);
                     System.out.println("LEFT RIGHT ROTATION");
                 }
-        }
-        else if( element > parentNode.element )
-        {
-            parentNode.rightChild = insertElement( element, parentNode.rightChild );
-            if( getHeight( parentNode.rightChild ) - getHeight( parentNode.leftChild ) == 2 )
-                if( element > parentNode.rightChild.element)
+        } else if (element > parentNode.element) {
+            parentNode.rightChild = insertElement(element, parentNode.rightChild);
+            if (getHeight(parentNode.rightChild) - getHeight(parentNode.leftChild) == 2)
+                if (element > parentNode.rightChild.element)
                     parentNode = LeftRotation(parentNode);
                 else
                     parentNode = RightLeftRotation(parentNode);
+        } else {
+            System.out.println("Cannot insert duplicate elements!");
         }
-        // if the element is already present in the tree, we will do nothing
-        else System.out.println("Cannot insert duplicate elements!");
-
-        parentNode.h = getMaxHeight( getHeight( parentNode.leftChild ), getHeight( parentNode.rightChild ) ) + 1;
+        parentNode.h = getMaxNode(getHeight(parentNode.leftChild), getHeight(parentNode.rightChild)) + 1;
 
         return parentNode;
 
     }
 
-    // creating rotateWithLeftChild() method to perform rotation of binary tree node with left child        
-    private avlNode RightRotation(avlNode avlNode2)
-    {
-        avlNode avlNode1 = avlNode2.leftChild;
-        avlNode2.leftChild = avlNode1.rightChild;
-        avlNode1.rightChild = avlNode2;
-        avlNode2.h = getMaxHeight( getHeight( avlNode2.leftChild ), getHeight( avlNode2.rightChild ) ) + 1;
-        avlNode1.h = getMaxHeight( getHeight( avlNode1.leftChild ), avlNode2.h ) + 1;
-
-        return avlNode1;
+    public int removeElement(int target) {
+        return removeElement(this.root, target);
     }
 
-    // creating rotateWithRightChild() method to perform rotation of binary tree node with right child        
-    private avlNode LeftRotation(avlNode avlNode1)
-    {
-        avlNode avlNode2 = avlNode1.rightChild;
-        avlNode1.rightChild = avlNode2.leftChild;
-        avlNode2.leftChild = avlNode1;
-        avlNode1.h = getMaxHeight( getHeight( avlNode1.leftChild ), getHeight( avlNode1.rightChild ) ) + 1;
-        avlNode2.h = getMaxHeight( getHeight( avlNode2.rightChild ), avlNode1.h ) + 1;
-        return avlNode2;
+    private int removeElement(AVLTreeNode root, int target) {
+
+        return 0;
     }
 
-    //create doubleWithLeftChild() method to perform double rotation of binary tree node. This method first rotate the left child with its right child, and after that, node3 with the new left child  
-    private avlNode LeftRightRotation(avlNode avlNode3)
-    {
-        avlNode3.leftChild = LeftRotation( avlNode3.leftChild );
-        return RightRotation(avlNode3);
+    private AVLTreeNode RightRotation(AVLTreeNode subTreeRoot) {
+        AVLTreeNode newSubTreeRoot = subTreeRoot.leftChild;
+        subTreeRoot.leftChild = newSubTreeRoot.rightChild;
+        newSubTreeRoot.rightChild = subTreeRoot;
+        subTreeRoot.h = getMaxNode(getHeight(subTreeRoot.leftChild), getHeight(subTreeRoot.rightChild)) + 1;
+        newSubTreeRoot.h = getMaxNode(getHeight(newSubTreeRoot.leftChild), subTreeRoot.h) + 1;
+
+        return newSubTreeRoot;
     }
 
-    //create doubleWithRightChild() method to perform double rotation of binary tree node. This method first rotate the right child with its left child and after that node1 with the new right child  
-    private avlNode RightLeftRotation(avlNode avlNode1)
-    {
-        avlNode1.rightChild = RightRotation( avlNode1.rightChild );
-        return LeftRotation(avlNode1);
+    private AVLTreeNode LeftRotation(AVLTreeNode subTreeRoot) {
+        AVLTreeNode newSubTreeRoot = subTreeRoot.rightChild;
+        subTreeRoot.rightChild = newSubTreeRoot.leftChild;
+        newSubTreeRoot.leftChild = subTreeRoot;
+        subTreeRoot.h = getMaxNode(getHeight(subTreeRoot.leftChild), getHeight(subTreeRoot.rightChild)) + 1;
+        newSubTreeRoot.h = getMaxNode(getHeight(newSubTreeRoot.rightChild), subTreeRoot.h) + 1;
+        return newSubTreeRoot;
+    }
+
+    private AVLTreeNode LeftRightRotation(AVLTreeNode subTreeRoot) {
+        subTreeRoot.leftChild = LeftRotation(subTreeRoot.leftChild);
+        return RightRotation(subTreeRoot);
+    }
+
+    private AVLTreeNode RightLeftRotation(AVLTreeNode subTreeRoot) {
+        subTreeRoot.rightChild = RightRotation(subTreeRoot.rightChild);
+        return LeftRotation(subTreeRoot);
     }
 
     //create getTotalNumberOfNodes() method to get total number of nodes in the AVL Tree  
-    public int getTotalNumberOfNodes()
-    {
+    public int getTotalNumberOfNodes() {
         return getTotalNumberOfNodes(root);
     }
-    private int getTotalNumberOfNodes(avlNode head)
-    {
+
+    private int getTotalNumberOfNodes(AVLTreeNode head) {
         if (head == null)
             return 0;
-        else
-        {
+        else {
             int length = 1;
-            length = length + getTotalNumberOfNodes(head.leftChild);
-            length = length + getTotalNumberOfNodes(head.rightChild);
+            length += getTotalNumberOfNodes(head.leftChild);
+            length += getTotalNumberOfNodes(head.rightChild);
             return length;
         }
     }
 
     //create searchElement() method to find an element in the AVL Tree  
-    public boolean searchElement(int element)
-    {
+    public boolean searchElement(int element) {
         return searchElement(root, element);
     }
 
-    private boolean searchElement(avlNode head, int element)
-    {
+    private boolean searchElement(AVLTreeNode head, int element) {
         boolean check = false;
-        while ((head != null) && !check)
-        {
+        while ((head != null) && !check) {
             int headElement = head.element;
-            if (element < headElement)
+            if (element < headElement) {
                 head = head.leftChild;
-            else if (element > headElement)
+            } else if (element > headElement) {
                 head = head.rightChild;
-            else
-            {
+            } else {
                 check = true;
-                break;
             }
-            check = searchElement(head, element);
+            //check = searchElement(head, element);
         }
         return check;
     }
-    // create inorderTraversal() method for traversing AVL Tree in in-order form  
-    public void inorderTraversal()
-    {
+
+    public boolean searchElementRecursive(int target) {
+        return searchElementRecursive(this.root, target);
+    }
+
+    public boolean searchElementRecursive(AVLTreeNode root, int target) {
+        if (root == null) {
+            return false;
+        } else if (root.element == target) {
+            return true;
+        } else if (root.element > target) {
+            return searchElementRecursive(root.leftChild, target);
+        } else {
+            return searchElementRecursive(root.rightChild, target);
+        }
+    }
+
+    // create inorderTraversal() method for traversing AVL Tree in in-order form
+    public void inorderTraversal() {
         inorderTraversal(root);
     }
-    private void inorderTraversal(avlNode head)
-    {
-        if (head != null)
-        {
+
+    private void inorderTraversal(AVLTreeNode head) {
+        if (head != null) {
             inorderTraversal(head.leftChild);
-            System.out.print(head.element+" ");
+            System.out.print(head.element + " ");
             inorderTraversal(head.rightChild);
         }
     }
 
     // create preorderTraversal() method for traversing AVL Tree in pre-order form  
-    public void preorderTraversal()
-    {
+    public void preorderTraversal() {
         preorderTraversal(root);
     }
-    private void preorderTraversal(avlNode head)
-    {
-        if (head != null)
-        {
-            System.out.print(head.element+" ");
+
+    private void preorderTraversal(AVLTreeNode head) {
+        if (head != null) {
+            System.out.print(head.element + " ");
             preorderTraversal(head.leftChild);
             preorderTraversal(head.rightChild);
         }
     }
 
     // create postorderTraversal() method for traversing AVL Tree in post-order form  
-    public void postorderTraversal()
-    {
+    public void postorderTraversal() {
         postorderTraversal(root);
     }
 
-    private void postorderTraversal(avlNode head)
-    {
-        if (head != null)
-        {
+    private void postorderTraversal(AVLTreeNode head) {
+        if (head != null) {
             postorderTraversal(head.leftChild);
             postorderTraversal(head.rightChild);
-            System.out.print(head.element+" ");
+            System.out.print(head.element + " ");
         }
     }
 }
 
 // create AVLTree class to construct AVL Tree  
-public class AVL
-{
+public class AVL {
     //main() method starts  
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         //creating Scanner class object to get input from user  
         Scanner sc = new Scanner(System.in);
 
@@ -245,11 +229,11 @@ public class AVL
         ConstructAVLTree obj = new ConstructAVLTree();
 
         // perform operation of AVL Tree using switch  
-        do
-        {
+        do {
             System.out.println("\nSelect an operation:\n");
             System.out.println("1. Insert a node");
             System.out.println("2. Search a node");
+            System.out.println("3. Remove a node");
             System.out.println("3. Get total number of nodes in AVL Tree");
             System.out.println("4. Is AVL Tree empty?");
             System.out.println("5. Remove all nodes from AVL Tree");
@@ -259,43 +243,46 @@ public class AVL
             System.out.println("9. Exit");
             //get choice from user  
             int ch = sc.nextInt();
-            switch (ch)
-            {
-                case 1 :
+            switch (ch) {
+                case 1:
                     System.out.println("Please enter an element to insert in AVL Tree");
-                    obj.insertElement( sc.nextInt() );
+                    obj.insertElement(sc.nextInt());
                     break;
-                case 2 :
+                case 2:
                     System.out.println("Enter integer element to search");
-                    System.out.println(obj.searchElement( sc.nextInt() ));
+                    System.out.println(obj.searchElement(sc.nextInt()));
                     break;
-                case 3 :
+                case 3:
+                    System.out.println("Enter the element you want to remove");
+                    System.out.println(obj.removeElement(sc.nextInt()));
+                    break;
+                case 4:
                     System.out.println(obj.getTotalNumberOfNodes());
                     break;
-                case 4 :
+                case 5:
                     System.out.println(obj.checkEmpty());
                     break;
-                case 5 :
+                case 6:
                     obj.removeAll();
                     System.out.println("\nTree Cleared successfully");
                     break;
-                case 6 :
+                case 7:
                     System.out.println("\nDisplay AVL Tree in Post order");
                     obj.postorderTraversal();
                     break;
-                case 7 :
+                case 8:
                     System.out.println("\nDisplay AVL Tree in Pre order");
                     obj.preorderTraversal();
                     break;
-                case 8 :
+                case 9:
                     System.out.println("\nDisplay AVL Tree in In order");
                     obj.inorderTraversal();
                     break;
-                case 9:
+                case 10:
                     System.out.println("Exit");
                     sc.close();
                     return;
-                default :
+                default:
                     System.out.println("\n ");
                     break;
             }
