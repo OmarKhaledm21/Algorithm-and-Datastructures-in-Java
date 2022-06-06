@@ -33,7 +33,7 @@ public class ArrayListGraphs {
         }
     }
 
-    // Driver Code
+    // LinkedLists.Driver Code
     public static void main(String[] args)
     {
         // Creating a graph with 5 vertices

@@ -1,3 +1,5 @@
+package Searching_Sorting;
+
 public class SearchAlgorithms {
     public static boolean linearSearch(int[] arr,int value,int size){
         for(int i=0; i<size; i++){

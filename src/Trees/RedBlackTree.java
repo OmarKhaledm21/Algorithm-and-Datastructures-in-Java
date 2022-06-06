@@ -1,9 +1,10 @@
-import java.util.ArrayList;
+package Trees;
+
 import java.util.Scanner;
 
 // considering that you know what are red-black trees here is the implementation in java for insertion and traversal.
-// RedBlackTree class. This class contains subclass for node
-// as well as all the functionalities of RedBlackTree such as - rotations, insertion and
+// Trees.RedBlackTree class. This class contains subclass for node
+// as well as all the functionalities of Trees.RedBlackTree such as - rotations, insertion and
 // inoredr traversal
 class redBlackNode {
     int data;
@@ -61,7 +62,7 @@ public class RedBlackTree {
         // f is true when RED RED conflict is there.
         boolean DoubleRedFlag=false;
 
-        //recursive calls to insert at proper position according to BST properties.
+        //recursive calls to insert at proper position according to Trees.BST properties.
         if(root==null)
             return(new redBlackNode(data));
         else if(data<root.data) {

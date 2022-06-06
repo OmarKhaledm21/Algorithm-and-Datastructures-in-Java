@@ -1,3 +1,5 @@
+package Stacks;
+
 import java.util.Arrays;
 
 public class StackArray {
@@ -20,7 +22,7 @@ public class StackArray {
             }
             System.out.println();
         }else{
-            System.out.println("Stack is empty");
+            System.out.println("Stacks.Stack is empty");
         }
     }
 
@@ -28,7 +30,7 @@ public class StackArray {
         if(topOfStack+1 < stackSize){
             stackArray[++topOfStack] = item;
         }else{
-            System.out.println("Stack is full");
+            System.out.println("Stacks.Stack is full");
         }
     }
 
@@ -38,7 +40,7 @@ public class StackArray {
             stackArray[topOfStack--]="-1";
             return temp;
         }
-        System.out.println("Stack is empty");
+        System.out.println("Stacks.Stack is empty");
         return "";
     }
 
@@ -47,7 +49,7 @@ public class StackArray {
             return stackArray[topOfStack];
 
         }else{
-            return "Stack is empty";
+            return "Stacks.Stack is empty";
         }
     }
 

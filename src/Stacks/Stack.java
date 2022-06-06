@@ -1,3 +1,5 @@
+package Stacks;
+
 class stackNode<T>{
     T data;
     stackNode<T> next;

@@ -1,3 +1,5 @@
+package Hashing;
+
 public class Hashes {
     String[] theArray;
     int arraySize;

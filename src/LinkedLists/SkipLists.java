@@ -1,3 +1,5 @@
+package LinkedLists;
+
 import java.util.Scanner;
 
 class SkipNode{

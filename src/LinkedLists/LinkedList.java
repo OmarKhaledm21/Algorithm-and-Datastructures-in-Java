@@ -1,3 +1,5 @@
+package LinkedLists;
+
 import java.util.Scanner;
 
 class Link{
@@ -33,7 +35,7 @@ public class LinkedList {
         if(!isEmpty()){
             firstLink = firstLink.next;
         }else{
-            System.out.println("Empty LinkedList");
+            System.out.println("Empty LinkedLists.LinkedList");
         }
         return linkRef;
     }

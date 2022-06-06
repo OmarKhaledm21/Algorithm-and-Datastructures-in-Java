@@ -1,3 +1,5 @@
+package Trees;
+
 import java.util.Scanner;
 
 class AVLTreeNode {
@@ -23,7 +25,7 @@ class AVLTreeNode {
     }
 }
 
-// create class ConstructAVLTree for constructing AVL Tree  
+// create class Trees.ConstructAVLTree for constructing Trees.AVL Tree
 class ConstructAVLTree {
     private AVLTreeNode root;
 
@@ -32,17 +34,17 @@ class ConstructAVLTree {
         root = null;
     }
 
-    //create removeAll() method to make AVL Tree empty  
+    //create removeAll() method to make Trees.AVL Tree empty
     public void removeAll() {
         root = null;
     }
 
-    // create checkEmpty() method to check whether the AVL Tree is empty or not  
+    // create checkEmpty() method to check whether the Trees.AVL Tree is empty or not
     public boolean checkEmpty() {
         return (root == null);
     }
 
-    //create getHeight() method to get the height of the AVL Tree
+    //create getHeight() method to get the height of the Trees.AVL Tree
     private int getHeight(AVLTreeNode AVLTreeNode) {
         return AVLTreeNode == null ? -1 : AVLTreeNode.h;
     }
@@ -52,12 +54,12 @@ class ConstructAVLTree {
         return Math.max(leftNodeHeight, rightNodeHeight);
     }
 
-    // create insertElement() to insert element to to the AVL Tree
+    // create insertElement() to insert element to to the Trees.AVL Tree
     public void insertElement(int element) {
         root = insertElement(element, root);
     }
 
-    //create insertElement() method to insert data in the AVL Tree recursively   
+    //create insertElement() method to insert data in the Trees.AVL Tree recursively
     private AVLTreeNode insertElement(int element, AVLTreeNode parentNode) {
          if (parentNode == null) {
             parentNode = new AVLTreeNode(element);
@@ -125,7 +127,7 @@ class ConstructAVLTree {
         return LeftRotation(subTreeRoot);
     }
 
-    //create getTotalNumberOfNodes() method to get total number of nodes in the AVL Tree  
+    //create getTotalNumberOfNodes() method to get total number of nodes in the Trees.AVL Tree
     public int getTotalNumberOfNodes() {
         return getTotalNumberOfNodes(root);
     }
@@ -141,7 +143,7 @@ class ConstructAVLTree {
         }
     }
 
-    //create searchElement() method to find an element in the AVL Tree  
+    //create searchElement() method to find an element in the Trees.AVL Tree
     public boolean searchElement(int element) {
         return searchElement(root, element);
     }
@@ -178,7 +180,7 @@ class ConstructAVLTree {
         }
     }
 
-    // create inorderTraversal() method for traversing AVL Tree in in-order form
+    // create inorderTraversal() method for traversing Trees.AVL Tree in in-order form
     public void inorderTraversal() {
         inorderTraversal(root);
     }
@@ -191,7 +193,7 @@ class ConstructAVLTree {
         }
     }
 
-    // create preorderTraversal() method for traversing AVL Tree in pre-order form  
+    // create preorderTraversal() method for traversing Trees.AVL Tree in pre-order form
     public void preorderTraversal() {
         preorderTraversal(root);
     }
@@ -204,7 +206,7 @@ class ConstructAVLTree {
         }
     }
 
-    // create postorderTraversal() method for traversing AVL Tree in post-order form  
+    // create postorderTraversal() method for traversing Trees.AVL Tree in post-order form
     public void postorderTraversal() {
         postorderTraversal(root);
     }
@@ -218,34 +220,34 @@ class ConstructAVLTree {
     }
 }
 
-// create AVLTree class to construct AVL Tree  
+// create AVLTree class to construct Trees.AVL Tree
 public class AVL {
     //main() method starts  
     public static void main(String[] args) {
         //creating Scanner class object to get input from user  
         Scanner sc = new Scanner(System.in);
 
-        // create object of ConstructAVLTree class object for costructing AVL Tree  
+        // create object of Trees.ConstructAVLTree class object for costructing Trees.AVL Tree
         ConstructAVLTree obj = new ConstructAVLTree();
 
-        // perform operation of AVL Tree using switch  
+        // perform operation of Trees.AVL Tree using switch
         do {
             System.out.println("\nSelect an operation:\n");
             System.out.println("1. Insert a node");
             System.out.println("2. Search a node");
             System.out.println("3. Remove a node");
-            System.out.println("3. Get total number of nodes in AVL Tree");
-            System.out.println("4. Is AVL Tree empty?");
-            System.out.println("5. Remove all nodes from AVL Tree");
-            System.out.println("6. Display AVL Tree in Post order");
-            System.out.println("7. Display AVL Tree in Pre order");
-            System.out.println("8. Display AVL Tree in In order");
+            System.out.println("3. Get total number of nodes in Trees.AVL Tree");
+            System.out.println("4. Is Trees.AVL Tree empty?");
+            System.out.println("5. Remove all nodes from Trees.AVL Tree");
+            System.out.println("6. Display Trees.AVL Tree in Post order");
+            System.out.println("7. Display Trees.AVL Tree in Pre order");
+            System.out.println("8. Display Trees.AVL Tree in In order");
             System.out.println("9. Exit");
             //get choice from user  
             int ch = sc.nextInt();
             switch (ch) {
                 case 1:
-                    System.out.println("Please enter an element to insert in AVL Tree");
+                    System.out.println("Please enter an element to insert in Trees.AVL Tree");
                     obj.insertElement(sc.nextInt());
                     break;
                 case 2:
@@ -267,15 +269,15 @@ public class AVL {
                     System.out.println("\nTree Cleared successfully");
                     break;
                 case 7:
-                    System.out.println("\nDisplay AVL Tree in Post order");
+                    System.out.println("\nDisplay Trees.AVL Tree in Post order");
                     obj.postorderTraversal();
                     break;
                 case 8:
-                    System.out.println("\nDisplay AVL Tree in Pre order");
+                    System.out.println("\nDisplay Trees.AVL Tree in Pre order");
                     obj.preorderTraversal();
                     break;
                 case 9:
-                    System.out.println("\nDisplay AVL Tree in In order");
+                    System.out.println("\nDisplay Trees.AVL Tree in In order");
                     obj.inorderTraversal();
                     break;
                 case 10:

@@ -1,3 +1,7 @@
+package Trees;
+
+import Queues.Queue;
+
 class treeNode{
     int key;
     treeNode left;
@@ -20,6 +24,10 @@ public class BST {
 
     public BST(){
         root=null;
+    }
+
+    public treeNode getRoot() {
+        return root;
     }
 
     public boolean isEmpty(){
@@ -88,7 +96,7 @@ public class BST {
 
 
     public void levelOrderTraversal(){
-        Queue<treeNode>q = new Queue<>();
+        Queue<treeNode> q = new Queue<>();
         if(isEmpty()){
             System.out.println("Tree is empty!");
             return;

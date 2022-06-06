@@ -1,5 +1,5 @@
 // Java Program to Implement Dijkstra's Algorithm
-// Using Priority Queue
+// Using Priority Queues.Queue
 
 // Importing utility classes
 import java.util.*;
@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 // Class 2
 // Helper class implementing Comparator interface
-// Representing a node in the graph
+// Representing a LinkedLists.node in the graph
 class Node implements Comparator<Node> {
 
     // Member variables of this class
@@ -74,7 +74,7 @@ public class GFG {
         for (int i = 0; i < V; i++)
             dist[i] = Integer.MAX_VALUE;
 
-        // Add source node to the priority queue
+        // Add source LinkedLists.node to the priority queue
         pq.add(new Node(src, 0));
 
         // Distance to the source is 0
@@ -87,11 +87,11 @@ public class GFG {
             if (pq.isEmpty())
                 return;
 
-            // Removing the minimum distance node
+            // Removing the minimum distance LinkedLists.node
             // from the priority queue
             int u = pq.remove().node;
 
-            // Adding the node whose distance is
+            // Adding the LinkedLists.node whose distance is
             // finalized
             if (settled.contains(u))
 
@@ -109,7 +109,7 @@ public class GFG {
 
     // Method 2
     // To process all the neighbours
-    // of the passed node
+    // of the passed LinkedLists.node
     private void e_Neighbours(int u)
     {
 
@@ -120,7 +120,7 @@ public class GFG {
         for (int i = 0; i < adj.get(u).size(); i++) {
             Node v = adj.get(u).get(i);
 
-            // If current node hasn't already been processed
+            // If current LinkedLists.node hasn't already been processed
             if (!settled.contains(v.node)) {
                 edgeDistance = v.cost;
                 newDistance = dist[u] + edgeDistance;
@@ -129,7 +129,7 @@ public class GFG {
                 if (newDistance < dist[v.node])
                     dist[v.node] = newDistance;
 
-                // Add the current node to the queue
+                // Add the current LinkedLists.node to the queue
                 pq.add(new Node(v.node, dist[v.node]));
             }
         }
@@ -148,7 +148,7 @@ public class GFG {
         List<List<Node> > adj
                 = new ArrayList<List<Node> >();
 
-        // Initialize list for every node
+        // Initialize list for every LinkedLists.node
         for (int i = 0; i < V; i++) {
             List<Node> item = new ArrayList<Node>();
             adj.add(item);
@@ -168,8 +168,8 @@ public class GFG {
         dpq.dijkstra(adj, source);
 
         // Printing the shortest path to all the nodes
-        // from the source node
-        System.out.println("The shorted path from node :");
+        // from the source LinkedLists.node
+        System.out.println("The shorted path from LinkedLists.node :");
 
         for (int i = 0; i < dpq.dist.length; i++)
             System.out.println(source + " to " + i + " is "

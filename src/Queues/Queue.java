@@ -1,3 +1,5 @@
+package Queues;
+
 class queueNode<T>{
     T data;
     queueNode<T> next;
@@ -44,7 +46,7 @@ public class Queue<T>{
 
     public void dequeue(){
         if(isEmpty()){
-            System.out.println("Queue is empty!");
+            System.out.println("Queues.Queue is empty!");
         }else if(length==1){
             frontPtr=rearPtr=null;
         }else{
@@ -83,7 +85,7 @@ public class Queue<T>{
                 curr = curr.next;
             }
         }else{
-            System.out.println("Queue is empty!");
+            System.out.println("Queues.Queue is empty!");
         }
     }
 

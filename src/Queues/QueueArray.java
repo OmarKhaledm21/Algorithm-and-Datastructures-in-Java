@@ -1,3 +1,5 @@
+package Queues;
+
 import java.util.Arrays;
 
 public class QueueArray {
@@ -20,7 +22,7 @@ public class QueueArray {
             queueArray[rear++]=item;
             numOfItems++;
         }else{
-            System.out.println("Queue is full");
+            System.out.println("Queues.Queue is full");
         }
     }
 
@@ -29,7 +31,7 @@ public class QueueArray {
             queueArray[front++]="-1";
             numOfItems--;
         }else{
-            System.out.println("Queue is empty");
+            System.out.println("Queues.Queue is empty");
         }
     }
 
