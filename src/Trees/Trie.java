@@ -51,7 +51,7 @@ public class Trie {
 
     public int insert(String word) {
         TrieNode current = root;
-        int gcount = Integer.MAX_VALUE;
+        int gcount = 0;
         int length = word.length();
         for (int x = 0; x < length; x++) {
             char chr = word.charAt(x);
@@ -60,17 +60,12 @@ public class Trie {
                 node = new TrieNode();
                 current.put(chr, node);
             } else {
-                node.counter++;
-                if (node.counter < gcount) {
-                    gcount = node.counter;
-                }
+                gcount++;
             }
             current = node;
         }
         current.setWord(true);
-        if (gcount == Integer.MAX_VALUE) {
-            return 0;
-        }
+
         return gcount;
     }
 
