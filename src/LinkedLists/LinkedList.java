@@ -1,5 +1,6 @@
 package LinkedLists;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 class Link{
@@ -12,7 +13,7 @@ class Link{
     }
 }
 
-public class LinkedList {
+public class LinkedList  {
 
     public Link firstLink;
 
@@ -155,6 +156,8 @@ public class LinkedList {
 
         input.close();
     }
+
+
 }
 
 /*
